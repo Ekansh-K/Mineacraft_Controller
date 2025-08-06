@@ -103,6 +103,9 @@ Thumbs.db
 .kiro/settings/
 .kiro/cache/
 .kiro/temp/
+.kiro/steering
+.kiro/specs
+.kiro
 
 # Keep these important files:
 # - Source code (src/)
@@ -110,5 +113,3 @@ Thumbs.db
 # - Configuration (pyproject.toml)
 # - Documentation (README.md)
 # - Main entry point (main.py)
-# - Kiro specs (.kiro/specs/)
-# - Kiro steering rules (.kiro/steering/)
