@@ -44,30 +44,6 @@
 - [ ] **Walk/Run modes**: Joystick distance determines movement speed
 - [ ] **Movement acceleration**: Gradual speed changes vs instant on/off
 
-### **Additional Game Controls**
-```cpp
-// Potential button mappings:
-// Left joystick click → Shift (run/crouch)
-// Additional pins → E (interact), F (flashlight), R (reload)
-// Trigger buttons → Left/Right mouse clicks
-// D-pad simulation → Arrow keys or number keys (1-4)
-```
-
-### **Advanced Gaming Features**
-- [ ] **Rapid fire mode**: Automatic button repeat
-- [ ] **Quick-turn function**: 180-degree instant mouse movement
-- [ ] **Combo sequences**: Pre-programmed key combinations
-- [ ] **Macro support**: Record and playback button sequences
-
----
-
-## 🔧 **User Customization & Profiles**
-
-### **Gaming Profiles**
-- [ ] **FPS Profile**: High sensitivity, rapid response
-- [ ] **Strategy Profile**: Lower sensitivity, precise movement
-- [ ] **Racing Profile**: Analog steering and acceleration
-- [ ] **Platformer Profile**: Digital movement with precise jumping
 
 ### **Customization Options**
 - [ ] **Sensitivity presets**: Multiple mouse sensitivity levels
@@ -83,31 +59,14 @@
 - [ ] **CPU frequency scaling**: Reduce from 240MHz to 80MHz
 - [ ] **Sleep mode**: Auto-sleep when inactive
 - [ ] **Power-saving profiles**: Balance performance vs battery life
-- [ ] **Low-power indicators**: Battery level warnings
-
-### **Hardware Enhancements**
-- [ ] **Haptic feedback**: Vibration motor for tactile response
-- [ ] **Status LED**: RGB LED for connection/battery status
-- [ ] **Additional buttons**: Shoulder buttons, triggers
-- [ ] **Analog triggers**: Pressure-sensitive for racing games
-
----
+- [ ] **Low-power indicators**: Battery level warnings-
 
 ## 🌐 **Connectivity & Integration**
 
 ### **Connection Improvements**
 - [ ] **Auto-reconnect**: Seamless reconnection to last device
 - [ ] **Multi-device support**: Quick switch between PC/mobile/console
-- [ ] **Connection status feedback**: Audio/visual pairing indicators
-- [ ] **Low latency mode**: Optimize BLE for minimal input lag
 
-### **Advanced Features**
-- [ ] **Gyroscope control**: Tilt-based aiming (motion controls)
-- [ ] **OTA updates**: Wireless firmware updates
-- [ ] **Companion app**: Mobile configuration app
-- [ ] **Cloud sync**: Backup settings to cloud
-
----
 
 ## 📊 **Monitoring & Analytics**
 
@@ -138,13 +97,8 @@
 3. ✅ **Add movement acceleration**
 4. ✅ **Optimize BLE settings**
 
-### **Phase 3: Advanced Features (Week 2)**
-1. ✅ **Add gyroscope control**
-2. ✅ **Implement macro support**
-3. ✅ **Add RGB status feedback**
-4. ✅ **Create companion app**
 
-### **Phase 4: Polish & Optimization (Week 3)**
+### **Phase 3: Polish & Optimization (Week 3)**
 1. ✅ **Performance optimization**
 2. ✅ **User customization interface**
 3. ✅ **Power management**
@@ -152,26 +106,6 @@
 
 ---
 
-## 🛒 **Required Components for Full Implementation**
-
-### **Power Solution ($10-15)**
-- LM2596 Buck Converter Module
-- 2200µF + 100µF Capacitors
-- 3.7V Li-Po Battery (alternative)
-
-### **Enhanced Hardware ($20-30)**
-- MPU6050 Gyroscope Module
-- WS2812B RGB LED
-- Vibration Motor
-- Additional tactile buttons
-
-### **Professional Upgrade ($50-100)**
-- Custom PCB design
-- 3D printed enclosure
-- Analog joystick modules with better resolution
-- Wireless charging capability
-
----
 
 ## 🔍 **Detailed Technical Analysis**
 
@@ -246,60 +180,7 @@ void debugPrint(const char* message) {
 }
 ```
 
-### **Diagonal WASD Movement**
-```cpp
-void handleWASDMovement(int xValue, int yValue) {
-  // Calculate joystick position relative to center
-  float deltaX = (float)(xValue - leftX.center) / 1000.0f;
-  float deltaY = (float)(yValue - leftY.center) / 1000.0f;
-  
-  // Handle diagonal movement combinations
-  bool shouldPressW = deltaY > WASD_THRESHOLD;
-  bool shouldPressA = deltaX < -WASD_THRESHOLD;
-  bool shouldPressS = deltaY < -WASD_THRESHOLD;
-  bool shouldPressD = deltaX > WASD_THRESHOLD;
-  
-  // Apply hysteresis and update key states
-  // ... implementation
-}
-```
 
-### **Dynamic Mouse Sensitivity**
-```cpp
-void handleMouseMovement(int xValue, int yValue) {
-  int deltaX = xValue - rightX.center;
-  int deltaY = yValue - rightY.center;
-  
-  // Dynamic sensitivity based on movement magnitude
-  float magnitude = sqrt(deltaX * deltaX + deltaY * deltaY);
-  float dynamicSensitivity = MOUSE_SENSITIVITY;
-  
-  if (magnitude > 800) {
-    dynamicSensitivity *= 1.5f; // Higher sensitivity for large movements
-  } else if (magnitude < 200) {
-    dynamicSensitivity *= 0.5f; // Lower sensitivity for precise movements
-  }
-  
-  // Apply sensitivity and send movement
-  mouse.mouseMove(deltaX * dynamicSensitivity / 200, deltaY * dynamicSensitivity / 200);
-}
-```
-
-### **Power Management Setup**
-```cpp
-void setup() {
-  // Set CPU frequency for power optimization
-  setCpuFrequencyMhz(80);  // Reduce from 240MHz to save power
-  
-  // Disable unnecessary wakeup sources
-  esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
-  
-  // Configure BLE power management
-  esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_DEFAULT, ESP_PWR_LVL_P3);
-}
-```
-
----
 
 ## 🧪 **Testing Strategy**
 
@@ -312,11 +193,6 @@ void setup() {
 1. **Serial Disable Test**: Comment out all Serial.println() calls
 2. **BLE Timing Test**: Add delays and measure connection success rate
 3. **Standalone Test**: Complete operation without USB connection
-
-### **Performance Testing**
-1. **Input Latency**: Measure response time from joystick to HID output
-2. **Connection Stability**: Long-term BLE connection testing
-3. **Battery Life**: Runtime testing with different power configurations
 
 ---
 
@@ -335,8 +211,3 @@ void setup() {
 - ESP32 Arduino Community Forums
 - Reddit: r/esp32
 - GitHub Issues for troubleshooting
-
-### **Recommended Tools**
-- Multimeter for power measurement
-- Oscilloscope for signal analysis (optional)
-- Logic analyzer for BLE debugging (advanced)
